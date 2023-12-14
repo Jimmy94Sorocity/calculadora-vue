@@ -5,51 +5,36 @@
   import Resultado from "./components/Resultado.vue";
 
   const estado = reactive({
-    numero1: "",
-    numero2: "",
-    resultado: "", 
+    numero1: 0,
+    numero2: 0,
+    resultado: 0,
+    operator: "opcao",
   })
 
-  const dividir = (num1, num2) => {
-      this.num1 = estado.numero1;
-      this.num2 = estado.numero2;
-      if ( num1 / num2) {
-        return estado.resultado;
-      }
-    }
+  const calculate = () => {
+    const { operator } = estado;
 
-    const multiplicar = (num1, num2) => {
-      this.num1 = estado.numero1;
-      this.num2 = estado.numero2;
-      if ( num1 * num2) {
-        return estado.resultado;
-      }
+    switch (operator) {
+      case "soma":
+        return resultado = numero1 + numero2;
+      case "subtracao":
+        return resultado = numero1 - numero2;
+      case "multiplicacao":
+        return resultado = numero1 * numero2;
+      case "divisao":
+        return resultado = numero1 / numero2;
     }
-
-    const subtrair = (num1, num2) => {
-      this.num1 = estado.numero1;
-      this.num2 = estado.numero2;
-      if ( num1 - num2) {
-        return estado.resultado;
-      }
-    }
-
-    const somar = (num1, num2) => {
-      this.num1 = estado.numero1;
-      this.num2 = estado.numero2;
-      if ( num1 + num2) {
-        return estado.resultado;
-      }
-    }
+  }
 </script>
 
 <template>
   <div class="container">
     <Cabecalho />
-    <Formulario 
-    :alteraConta="dividir"
-    />
-    <Resultado/>
+    <Formulario
+    :altera-conta="calculate()"
+    :num1="evento => estado.numero1 = evento.target.value"
+    :num2="evento => estado.numero2 = evento.target.value"/>
+    <Resultado :resultado="evento => estado.resultado = evento.target.value"/>
   </div>
 </template>
 
