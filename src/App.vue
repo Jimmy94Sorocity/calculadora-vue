@@ -5,25 +5,28 @@
   import Resultado from "./components/Resultado.vue";
 
   const estado = reactive({
-    numero1: 0,
-    numero2: 0,
     resultado: 0,
-    operator: "opcao",
   })
 
-  const calculate = () => {
-    const { operator } = estado;
+  const calculate = (numero1, numero2, operator) => {
+    let resultado;
 
     switch (operator) {
       case "soma":
-        return resultado = numero1 + numero2;
+        resultado = numero1 + numero2;
+        break;
       case "subtracao":
-        return resultado = numero1 - numero2;
+        resultado = numero1 - numero2;
+        break;
       case "multiplicacao":
-        return resultado = numero1 * numero2;
+        resultado = numero1 * numero2;
+        break;
       case "divisao":
-        return resultado = numero1 / numero2;
+        resultado = numero1 / numero2;
+        break;
     }
+
+    estado.resultado = resultado;
   }
 </script>
 
@@ -31,10 +34,8 @@
   <div class="container">
     <Cabecalho />
     <Formulario
-    :altera-conta="calculate()"
-    :num1="evento => estado.numero1 = evento.target.value"
-    :num2="evento => estado.numero2 = evento.target.value"/>
-    <Resultado :resultado="evento => estado.resultado = evento.target.value"/>
+    :altera-conta="calculate"/>
+    <Resultado :resultado="estado.resultado" />
   </div>
 </template>
 
